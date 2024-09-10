@@ -19,69 +19,69 @@ public class Main {
         setupWorld();
 
         // TODO: H0.4 - Initializing FOPBot
-        Robot picker = new Robot(0, 3, Direction.DOWN, 0, RobotFamily.SQUARE_GREEN);
-        Robot putter = new Robot(0, 0, Direction.DOWN, 4, RobotFamily.SQUARE_BLUE);
+        Robot kasper = new Robot(0, 0, Direction.DOWN, 4, RobotFamily.SQUARE_BLUE);
+        Robot alfred = new Robot(0, 3, Direction.DOWN, 0, RobotFamily.SQUARE_GREEN);
 
         // TODO: H0.5.1 - Turning with repeated instructions
-        picker.turnLeft();
-        picker.turnLeft();
+        alfred.turnLeft();
+        alfred.turnLeft();
 
         // TODO: H0.5.2 - Turning with for-loop
         int numberOfTurns = 2;
         for (int i = 0; i < numberOfTurns; i++) {
-            picker.turnLeft();
+            alfred.turnLeft();
         }
 
         // TODO: H0.5.3 - Turning with while-loop
-        while (!putter.isFacingRight()) {
-            putter.turnLeft();
+        while (!kasper.isFacingRight()) {
+            kasper.turnLeft();
         }
 
         // TODO: H0.6.1 - Putting with repeated instructions
-        putter.putCoin();
-        putter.move();
-        putter.move();
-        putter.move();
-        putter.turnLeft();
+        kasper.putCoin();
+        kasper.move();
+        kasper.move();
+        kasper.move();
+        kasper.turnLeft();
 
         // TODO: H0.6.2 - Picking with repeated instructions
-        picker.move();
-        picker.move();
-        picker.move();
-        picker.pickCoin();
-        picker.turnLeft();
+        alfred.move();
+        alfred.move();
+        alfred.move();
+        alfred.pickCoin();
+        alfred.turnLeft();
 
         // TODO: H0.6.3 - Putting with for-loop
-        putter.putCoin();
+        kasper.putCoin();
         int numberOfSteps = 3;
         for (int i = 0; i < numberOfSteps; i++) {
-            putter.move();
+            kasper.move();
         }
-        putter.turnLeft();
+        kasper.turnLeft();
 
         // TODO: H0.6.4 - Picking with while-loop
-        while (picker.isFrontClear()) {
-            picker.move();
+        while (alfred.isFrontClear()) {
+            alfred.move();
         }
-        picker.pickCoin();
-        picker.turnLeft();
+        alfred.pickCoin();
+        alfred.turnLeft();
 
         // TODO: H0.6.5 - Picking and putting with while-loop
-        putter.putCoin();
-        while (putter.isFrontClear()) {
-            picker.move();
-            putter.move();
+        kasper.putCoin();
+        while (kasper.isFrontClear()) {
+            alfred.move();
+            kasper.move();
         }
-        picker.pickCoin();
-        putter.turnLeft();
-        picker.turnLeft();
+        alfred.pickCoin();
+        kasper.turnLeft();
+        alfred.turnLeft();
 
         // TODO: H0.6.6 - Reputting with reversed for-loop
-        for (int i = picker.getNumberOfCoins(); i > 0; i--) {
-            picker.putCoin();
-            picker.move();
+        for (int i = alfred.getNumberOfCoins(); i > 0; i--) {
+            alfred.putCoin();
+            alfred.move();
         }
-        picker.turnLeft();
+        alfred.turnLeft();
     }
 
     public static void setupWorld() {
