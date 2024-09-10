@@ -19,8 +19,8 @@ public class Main {
         setupWorld();
 
         // TODO: H0.1 - Initializing FOPBot
-        Robot picker = new Robot(0,3, Direction.DOWN, 0, RobotFamily.SQUARE_AQUA);
-        Robot putter = new Robot(0,0, Direction.DOWN, 4, RobotFamily.SQUARE_GREEN);
+        Robot picker = new Robot(0, 3, Direction.DOWN, 0, RobotFamily.SQUARE_GREEN);
+        Robot putter = new Robot(0, 0, Direction.DOWN, 4, RobotFamily.SQUARE_BLUE);
 
         // TODO: H0.2.1 - Turning with repeated instructions
         picker.turnLeft();
