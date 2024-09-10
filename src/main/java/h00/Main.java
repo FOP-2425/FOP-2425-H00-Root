@@ -18,40 +18,40 @@ public class Main {
         // This sets up the FOPBot World with a 4x4 grid. (DO NOT TOUCH)
         setupWorld();
 
-        // TODO: H0.1 - Initializing FOPBot
+        // TODO: H0.4 - Initializing FOPBot
         Robot picker = new Robot(0, 3, Direction.DOWN, 0, RobotFamily.SQUARE_GREEN);
         Robot putter = new Robot(0, 0, Direction.DOWN, 4, RobotFamily.SQUARE_BLUE);
 
-        // TODO: H0.2.1 - Turning with repeated instructions
+        // TODO: H0.5.1 - Turning with repeated instructions
         picker.turnLeft();
         picker.turnLeft();
 
-        // TODO: H0.2.2 - Turning with for-loop
+        // TODO: H0.5.2 - Turning with for-loop
         int numberOfTurns = 2;
         for (int i = 0; i < numberOfTurns; i++) {
             picker.turnLeft();
         }
 
-        // TODO: H0.2.3 - Turning with while-loop
+        // TODO: H0.5.3 - Turning with while-loop
         while (!putter.isFacingRight()) {
             putter.turnLeft();
         }
 
-        // TODO: H0.3.1 - Putting with repeated instructions
+        // TODO: H0.6.1 - Putting with repeated instructions
         putter.putCoin();
         putter.move();
         putter.move();
         putter.move();
         putter.turnLeft();
 
-        // TODO: H0.3.2 - Picking with repeated instructions
+        // TODO: H0.6.2 - Picking with repeated instructions
         picker.move();
         picker.move();
         picker.move();
         picker.pickCoin();
         picker.turnLeft();
 
-        // TODO: H0.3.3 - Putting with for-loop
+        // TODO: H0.6.3 - Putting with for-loop
         putter.putCoin();
         int numberOfSteps = 3;
         for (int i = 0; i < numberOfSteps; i++) {
@@ -59,14 +59,14 @@ public class Main {
         }
         putter.turnLeft();
 
-        // TODO: H0.3.4 - Picking with while-loop
+        // TODO: H0.6.4 - Picking with while-loop
         while (picker.isFrontClear()) {
             picker.move();
         }
         picker.pickCoin();
         picker.turnLeft();
 
-        // TODO: H0.3.5 - Picking and putting with while-loop
+        // TODO: H0.6.5 - Picking and putting with while-loop
         putter.putCoin();
         while (putter.isFrontClear()) {
             picker.move();
@@ -76,7 +76,7 @@ public class Main {
         putter.turnLeft();
         picker.turnLeft();
 
-        // TODO: H0.3.6 - Reputting with reversed for-loop
+        // TODO: H0.6.6 - Reputting with reversed for-loop
         for (int i = picker.getNumberOfCoins(); i > 0; i--) {
             picker.putCoin();
             picker.move();
