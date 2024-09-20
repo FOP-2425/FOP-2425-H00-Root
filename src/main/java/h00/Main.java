@@ -37,21 +37,21 @@ public class Main {
             kasper.turnLeft();
         }
 
-        // TODO: H0.6.1 - Putting with repeated instructions
+        // TODO: H0.6.1 - Put with repeated instructions
         kasper.putCoin();
         kasper.move();
         kasper.move();
         kasper.move();
         kasper.turnLeft();
 
-        // TODO: H0.6.2 - Picking with repeated instructions
+        // TODO: H0.6.2 - Pick with repeated instructions
         alfred.move();
         alfred.move();
         alfred.move();
         alfred.pickCoin();
         alfred.turnLeft();
 
-        // TODO: H0.6.3 - Putting with for-loop
+        // TODO: H0.6.3 - Put with for-loop
         kasper.putCoin();
         int numberOfSteps = 3;
         for (int i = 0; i < numberOfSteps; i++) {
@@ -59,24 +59,24 @@ public class Main {
         }
         kasper.turnLeft();
 
-        // TODO: H0.6.4 - Picking with while-loop
+        // TODO: H0.7.1 - Pick with while-loop
         while (alfred.isFrontClear()) {
             alfred.move();
         }
         alfred.pickCoin();
         alfred.turnLeft();
 
-        // TODO: H0.6.5 - Picking and putting with while-loop
+        // TODO: H0.7.2 - Pick and put with while-loop
         kasper.putCoin();
         while (kasper.isFrontClear()) {
-            alfred.move();
             kasper.move();
+            alfred.move();
         }
         alfred.pickCoin();
-        kasper.turnLeft();
         alfred.turnLeft();
+        kasper.turnLeft();
 
-        // TODO: H0.6.6 - Reputting with reversed for-loop
+        // TODO: H0.7.3 - Put with reversed for-loop
         for (int i = alfred.getNumberOfCoins(); i > 0; i--) {
             alfred.putCoin();
             alfred.move();
