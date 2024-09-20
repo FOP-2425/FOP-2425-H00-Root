@@ -69,8 +69,8 @@ public class Main {
         // TODO: H0.7.2 - Pick and put with while-loop
         kasper.putCoin();
         while (kasper.isFrontClear()) {
-            alfred.move();
             kasper.move();
+            alfred.move();
         }
         alfred.pickCoin();
         alfred.turnLeft();
