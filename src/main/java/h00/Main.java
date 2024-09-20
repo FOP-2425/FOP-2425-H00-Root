@@ -73,8 +73,8 @@ public class Main {
             kasper.move();
         }
         alfred.pickCoin();
-        kasper.turnLeft();
         alfred.turnLeft();
+        kasper.turnLeft();
 
         // TODO: H0.7.3 - Put with reversed for-loop
         for (int i = alfred.getNumberOfCoins(); i > 0; i--) {
