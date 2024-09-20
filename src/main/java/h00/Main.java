@@ -59,14 +59,14 @@ public class Main {
         }
         kasper.turnLeft();
 
-        // TODO: H0.6.4 - Picking with while-loop
+        // TODO: H0.7.1 - Picking with while-loop
         while (alfred.isFrontClear()) {
             alfred.move();
         }
         alfred.pickCoin();
         alfred.turnLeft();
 
-        // TODO: H0.6.5 - Picking and putting with while-loop
+        // TODO: H0.7.2 - Picking and putting with while-loop
         kasper.putCoin();
         while (kasper.isFrontClear()) {
             alfred.move();
@@ -76,7 +76,7 @@ public class Main {
         kasper.turnLeft();
         alfred.turnLeft();
 
-        // TODO: H0.6.6 - Reputting with reversed for-loop
+        // TODO: H0.7.3 - Reputting with reversed for-loop
         for (int i = alfred.getNumberOfCoins(); i > 0; i--) {
             alfred.putCoin();
             alfred.move();
