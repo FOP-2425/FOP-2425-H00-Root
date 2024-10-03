@@ -77,4 +77,27 @@ public class Utils {
             .map(transition -> transition.action)
             .toList();
     }
+
+    /**
+     * Maps the subtask string to the corresponding index.
+     *
+     * @param subtask the subtask name
+     * @return the index
+     * @see MainTest#SUBTASK_ROBOT_TRANSITIONS
+     */
+    public static int subtaskToIndex(String subtask) {
+        return switch (subtask) {
+            case "H0.4" -> 0;
+            case "H0.5.1" -> 1;
+            case "H0.5.2" -> 2;
+            case "H0.5.3" -> 3;
+            case "H0.6.1" -> 4;
+            case "H0.6.2" -> 5;
+            case "H0.6.3" -> 6;
+            case "H0.7.1" -> 7;
+            case "H0.7.2" -> 8;
+            case "H0.7.3" -> 9;
+            default -> -1;
+        };
+    }
 }

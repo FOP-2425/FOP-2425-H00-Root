@@ -22,6 +22,7 @@ import static h00.Utils.RobotSpec.ALFRED;
 import static h00.Utils.RobotSpec.KASPAR;
 import static h00.Utils.deserializeRobotActions;
 import static h00.Utils.getRobot;
+import static h00.Utils.subtaskToIndex;
 import static h00.Utils.toRobotActions;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
@@ -92,21 +93,76 @@ public class MainTest {
             assertEquals(robotSpec.robotFamily, robot.getRobotFamily(), context, result -> robotSpec.name + "'s RobotFamily is incorrect");
         }
 
-        testMovements(params, 0);
+        testMovements(params, "H0.4");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_5_1.json")
+    public void testH0_5_1(JsonParameterSet params) {
+        testMovements(params, "H0.5.1");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_5_2.json")
+    public void testH0_5_2(JsonParameterSet params) {
+        testMovements(params, "H0.5.2");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_5_3.json")
+    public void testH0_5_3(JsonParameterSet params) {
+        testMovements(params, "H0.5.3");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_6_1.json")
+    public void testH0_6_1(JsonParameterSet params) {
+        testMovements(params, "H0.6.1");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_6_2.json")
+    public void testH0_6_2(JsonParameterSet params) {
+        testMovements(params, "H0.6.2");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_6_3.json")
+    public void testH0_6_3(JsonParameterSet params) {
+        testMovements(params, "H0.6.3");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_7_1.json")
+    public void testH0_7_1(JsonParameterSet params) {
+        testMovements(params, "H0.7.1");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_7_2.json")
+    public void testH0_7_2(JsonParameterSet params) {
+        testMovements(params, "H0.7.2");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("H0_7_3.json")
+    public void testH0_7_3(JsonParameterSet params) {
+        testMovements(params, "H0.7.3");
     }
 
     /**
      * Tests Kaspar's and Alfred's movements.
      *
      * @param params  the expected movements (serialized)
-     * @param subtask the subtask number (see markers in main method)
+     * @param subtask the subtask (see markers in main method)
      */
-    private void testMovements(JsonParameterSet params, int subtask) {
+    private void testMovements(JsonParameterSet params, String subtask) {
         for (Utils.RobotSpec robotSpec : Utils.RobotSpec.values()) {
             List<Transition.RobotAction> expectedMovements = deserializeRobotActions(params.get(robotSpec.name));
-            List<Transition.RobotAction> actualMovements = toRobotActions(SUBTASK_ROBOT_TRANSITIONS.get(subtask).get(robotSpec));
+            List<Transition.RobotAction> actualMovements = toRobotActions(SUBTASK_ROBOT_TRANSITIONS.get(subtaskToIndex(subtask)).get(robotSpec));
 
-            assertEquals(expectedMovements, actualMovements, emptyContext(), result -> robotSpec.name + "'s movements are incorrect");
+            assertEquals(expectedMovements, actualMovements, emptyContext(), result ->
+                robotSpec.name + "'s movements are incorrect for task " + subtask);
         }
     }
 }

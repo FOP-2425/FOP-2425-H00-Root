@@ -28,7 +28,10 @@ public class H00_RubricProvider implements RubricProvider {
                 .shortDescription("H0.5 | Let’s start with turning")
                 .addChildCriteria(
                     criterion(
-                        "Beide Roboter haben die korrekte Anzahl an Drehungen durch geführt. "
+                        "Beide Roboter haben die korrekte Anzahl an Drehungen durch geführt.",
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_5_1", JsonParameterSet.class)),
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_5_2", JsonParameterSet.class)),
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_5_3", JsonParameterSet.class))
                     ),
                     criterion(
                         "Es wurden bis hierhin genau eine for- und eine while-Schleife benutzt.",
@@ -41,7 +44,10 @@ public class H00_RubricProvider implements RubricProvider {
                 .shortDescription("H0.6 | Now we move, put, and pick")
                 .addChildCriteria(
                     criterion(
-                        "Beide Roboter haben die korrekten Bewegungen durchgeführt (move, turnLeft, pick, put). "
+                        "Beide Roboter haben die korrekten Bewegungen durchgeführt (move, turnLeft, pick, put).",
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_6_1", JsonParameterSet.class)),
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_6_2", JsonParameterSet.class)),
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_6_3", JsonParameterSet.class))
                     ),
                     criterion(
                         "Es wurde genau eine zusätzliche for-Schleife benutzt.",
@@ -51,10 +57,13 @@ public class H00_RubricProvider implements RubricProvider {
                 .minPoints(0)
                 .build(),
             Criterion.builder()
-                .shortDescription("H0.7 | Let’s repeat that ")
+                .shortDescription("H0.7 | Let’s repeat that")
                 .addChildCriteria(
                     criterion(
-                        "Beide Roboter haben die korrekten Bewegungen durchgeführt (move, turnLeft, pick, put). "
+                        "Beide Roboter haben die korrekten Bewegungen durchgeführt (move, turnLeft, pick, put).",
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_7_1", JsonParameterSet.class)),
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_7_2", JsonParameterSet.class)),
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_7_3", JsonParameterSet.class))
                     ),
                     criterion(
                         "Es wurden genau eine zusätzliche for-Schleife und zwei zusätzliche while-Schleifen benutzt.",
