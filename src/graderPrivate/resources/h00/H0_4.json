@@ -1,6 +1,4 @@
-[
-  {
-    "Alfred" : [ "NONE" ],
-    "Kaspar" : [ "NONE" ]
-  }
-]
+[ {
+  "Kaspar" : [ "NONE" ],
+  "Alfred" : [ "NONE" ]
+} ]

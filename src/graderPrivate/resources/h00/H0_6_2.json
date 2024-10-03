@@ -1,6 +1,4 @@
-[
-  {
-    "Alfred" : [ "MOVE", "TURN_LEFT", "NONE" ],
-    "Kaspar" : [ "MOVE", "PICK_COIN", "TURN_LEFT", "NONE" ]
-  }
-]
+[ {
+  "Kaspar" : [ "NONE" ],
+  "Alfred" : [ "MOVE", "MOVE", "MOVE", "PICK_COIN", "TURN_LEFT", "NONE" ]
+} ]

@@ -41,7 +41,7 @@ public class MainTest {
 
     @Order(1)
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, -1})
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
     public void setup(int subtask) {
         Main.runToSubtask = subtask;
         try {
