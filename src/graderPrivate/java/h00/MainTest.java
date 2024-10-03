@@ -4,11 +4,7 @@ import fopbot.Robot;
 import fopbot.Transition;
 import fopbot.World;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
@@ -29,20 +25,20 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.context
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 
 @TestForSubmission
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MainTest {
 
     private static final List<Map<Utils.RobotSpec, List<Transition>>> SUBTASK_ROBOT_TRANSITIONS = new ArrayList<>();
 
     @BeforeAll
-    public static void setDelay() {
+    public static void setup() {
         Main.delay = 0;
+
+        for (int i = 0; i < 10; i++) {
+            setup(i);
+        }
     }
 
-    @Order(1)
-    @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
-    public void setup(int subtask) {
+    private static void setup(int subtask) {
         Main.runToSubtask = subtask;
         try {
             Main.main(new String[0]);
@@ -55,7 +51,7 @@ public class MainTest {
             .getTrace(getRobot(KASPAR))
             .getTransitions();
         List<Transition> alfredTransitions = World.getGlobalWorld()
-            .getTrace(getRobot(Utils.RobotSpec.ALFRED))
+            .getTrace(getRobot(ALFRED))
             .getTransitions();
 
         int kasperPreviousTransitions = 0;
