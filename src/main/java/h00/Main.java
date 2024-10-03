@@ -9,7 +9,9 @@ import fopbot.World;
  * Main entry point in executing the program.
  */
 public class Main {
+
     public static int runToSubtask = -1;
+    public static int delay = 300;
 
     /**
      * Main entry point in executing the program.
@@ -104,7 +106,7 @@ public class Main {
 
         // speed of how fast the world gets refreshed (e.g. how fast the robot(s) act)
         // the lower the number, the faster the refresh
-        World.setDelay(300);
+        World.setDelay(delay);
 
         // make it possible to see the world window
         World.setVisible(true);

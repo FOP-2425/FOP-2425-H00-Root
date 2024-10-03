@@ -1,0 +1,6 @@
+[
+  {
+    "Alfred" : [ "PUT_COIN", "MOVE", "PUT_COIN", "MOVE", "PUT_COIN", "MOVE", "TURN_LEFT", "NONE" ],
+    "Kaspar" : [ "NONE" ]
+  }
+]
