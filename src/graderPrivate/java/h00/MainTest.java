@@ -4,11 +4,17 @@ import fopbot.Robot;
 import fopbot.Transition;
 import fopbot.World;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.tudalgo.algoutils.tutor.general.SpoonUtils;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +26,13 @@ import static h00.Utils.deserializeRobotActions;
 import static h00.Utils.getRobot;
 import static h00.Utils.subtaskToIndex;
 import static h00.Utils.toRobotActions;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
 public class MainTest {
 
     private static final List<Map<Utils.RobotSpec, List<Transition>>> SUBTASK_ROBOT_TRANSITIONS = new ArrayList<>();
+    private static final List<List<CtElement>> CT_ELEMENTS = new ArrayList<>();
 
     @BeforeAll
     public static void setup() {
@@ -35,6 +40,21 @@ public class MainTest {
 
         for (int i = 0; i < 10; i++) {
             setup(i);
+        }
+
+        CtType<?> ctType = SpoonUtils.getType(Main.class.getName());
+        CtMethod<?> ctMethod = ctType.getMethodsByName("main").get(0);
+        List<CtElement> ctElements = ctMethod.getBody().getDirectChildren();
+        int previousSplit = 0;
+        for (int i = 0; i < ctElements.size(); i++) {
+            CtElement ctElement = ctElements.get(i);
+            if (ctElement instanceof CtIf ctIf && ctIf.getCondition().toString().matches(Main.class.getName() + "\\.runToSubtask == \\d+")) {
+                CT_ELEMENTS.add(ctElements.subList(previousSplit, i));
+                previousSplit = i + 1;
+            }
+            if (i == ctElements.size() - 1) {
+                CT_ELEMENTS.add(ctElements.subList(previousSplit, ctElements.size()));
+            }
         }
     }
 
@@ -110,6 +130,25 @@ public class MainTest {
         testMovements(params, "H0.5.3");
     }
 
+    @Test
+    public void testH0_5VA() {
+        assertFalse(CT_ELEMENTS.get(subtaskToIndex("H0.5.1"))
+            .stream()
+            .anyMatch(CtLoop.class::isInstance),
+            emptyContext(),
+            result -> "H0.5.1 uses a loop");
+        assertTrue(CT_ELEMENTS.get(subtaskToIndex("H0.5.2"))
+            .stream()
+            .anyMatch(CtFor.class::isInstance),
+            emptyContext(),
+            result -> "H0.5.2 does not use a for-loop");
+        assertTrue(CT_ELEMENTS.get(subtaskToIndex("H0.5.3"))
+            .stream()
+            .anyMatch(CtWhile.class::isInstance),
+            emptyContext(),
+            result -> "H0.5.3 does not use a while-loop");
+    }
+
     @ParameterizedTest
     @JsonParameterSetTest("H0_6_1.json")
     public void testH0_6_1(JsonParameterSet params) {
@@ -128,6 +167,25 @@ public class MainTest {
         testMovements(params, "H0.6.3");
     }
 
+    @Test
+    public void testH0_6VA() {
+        assertFalse(CT_ELEMENTS.get(subtaskToIndex("H0.6.1"))
+                .stream()
+                .anyMatch(CtLoop.class::isInstance),
+            emptyContext(),
+            result -> "H0.6.1 uses a loop");
+        assertFalse(CT_ELEMENTS.get(subtaskToIndex("H0.6.2"))
+                .stream()
+                .anyMatch(CtLoop.class::isInstance),
+            emptyContext(),
+            result -> "H0.6.2 uses a loop");
+        assertTrue(CT_ELEMENTS.get(subtaskToIndex("H0.6.3"))
+                .stream()
+                .anyMatch(CtFor.class::isInstance),
+            emptyContext(),
+            result -> "H0.6.3 does not use a for-loop");
+    }
+
     @ParameterizedTest
     @JsonParameterSetTest("H0_7_1.json")
     public void testH0_7_1(JsonParameterSet params) {
@@ -144,6 +202,42 @@ public class MainTest {
     @JsonParameterSetTest("H0_7_3.json")
     public void testH0_7_3(JsonParameterSet params) {
         testMovements(params, "H0.7.3");
+    }
+
+    @Test
+    public void testH0_7VA() {
+        assertTrue(CT_ELEMENTS.get(subtaskToIndex("H0.7.1"))
+                .stream()
+                .anyMatch(CtWhile.class::isInstance),
+            emptyContext(),
+            result -> "H0.7.1 does not use a while-loop");
+        assertTrue(CT_ELEMENTS.get(subtaskToIndex("H0.7.2"))
+                .stream()
+                .anyMatch(CtWhile.class::isInstance),
+            emptyContext(),
+            result -> "H0.7.2 does not use a while-loop");
+        assertTrue(CT_ELEMENTS.get(subtaskToIndex("H0.7.3"))
+                .stream()
+                .anyMatch(CtFor.class::isInstance),
+            emptyContext(),
+            result -> "H0.7.3 does not use a for-loop");
+    }
+
+    @Test
+    public void testH0_7VA_ForLoop() {
+        CT_ELEMENTS.get(subtaskToIndex("H0.7.3"))
+            .stream()
+            .filter(CtFor.class::isInstance)
+            .map(CtFor.class::cast)
+            .findAny()
+            .ifPresent(ctFor -> {
+                List<CtStatement> updateStatements = ctFor.getForUpdate();
+                assertEquals(1, updateStatements.size(), emptyContext(),
+                    result -> "Found more than one update statement in for-loop");
+                assertTrue(updateStatements.get(0) instanceof CtUnaryOperator<?> op && op.getKind() == UnaryOperatorKind.POSTDEC,
+                    emptyContext(),
+                    result -> "Update statement does not use a postdecrement operator (i.e., i--)");
+            });
     }
 
     /**

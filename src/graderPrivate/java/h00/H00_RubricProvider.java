@@ -35,7 +35,8 @@ public class H00_RubricProvider implements RubricProvider {
                     ),
                     criterion(
                         "Es wurden bis hierhin genau eine for- und eine while-Schleife benutzt.",
-                        -1
+                        -1,
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_5VA"))
                     )
                 )
                 .minPoints(0)
@@ -51,7 +52,8 @@ public class H00_RubricProvider implements RubricProvider {
                     ),
                     criterion(
                         "Es wurde genau eine zusätzliche for-Schleife benutzt.",
-                        -1
+                        -1,
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_6VA"))
                     )
                 )
                 .minPoints(0)
@@ -67,11 +69,13 @@ public class H00_RubricProvider implements RubricProvider {
                     ),
                     criterion(
                         "Es wurden genau eine zusätzliche for-Schleife und zwei zusätzliche while-Schleifen benutzt.",
-                        -1
+                        -1,
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_7VA"))
                     ),
                     criterion(
-                        "Die Läufervariable einer for-Schleife verringert sich.",
-                        -1
+                        "Die Läufervariable der for-Schleife verringert sich.",
+                        -1,
+                        JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testH0_7VA_ForLoop"))
                     )
                 )
                 .minPoints(0)
