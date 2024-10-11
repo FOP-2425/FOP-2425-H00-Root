@@ -1,10 +1,10 @@
 [versions]
-algoutils = "0.8.0"
+algoutils = "0.7.2"
 
 [plugins]
 algomate = { id = "org.tudalgo.algomate", version = "0.6.1" }
 style = { id = "org.sourcegrade.style", version = "2.1.0" }
-jagr = { id = "org.sourcegrade.jagr-gradle", version = "0.10.2" }
+jagr = { id = "org.sourcegrade.jagr-gradle", version = "0.10.3" }
 
 
 [libraries]
