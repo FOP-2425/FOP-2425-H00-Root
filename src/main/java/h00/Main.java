@@ -10,7 +10,14 @@ import fopbot.World;
  */
 public class Main {
 
+    /**
+     * The subtask to run.
+     */
     public static int runToSubtask = -1;
+
+    /**
+     * The world speed in milliseconds.
+     */
     public static int delay = 300;
 
     /**
