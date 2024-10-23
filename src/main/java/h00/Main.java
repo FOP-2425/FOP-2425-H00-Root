@@ -87,7 +87,7 @@ public class Main {
         if (runToSubtask == 7) return; // DO NOT TOUCH!
         // TODO: H0.7.2 - Pick and put with while-loop
         kasper.putCoin();
-        while (kasper.isFrontClear()) {
+        while (alfred.isFrontClear()) {
             kasper.move();
             alfred.move();
         }
