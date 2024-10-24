@@ -1,6 +1,5 @@
 plugins {
- alias(libs.plugins.algomate)
-    alias(libs.plugins.jagr)
+    alias(libs.plugins.algomate)
     alias(libs.plugins.style)
 }
 
@@ -14,6 +13,10 @@ submission {
     // ACHTUNG!
     // Setzen Sie im folgenden Bereich Ihre TU-ID (NICHT Ihre Matrikelnummer!), Ihren Nachnamen und Ihren Vornamen
     // in Anführungszeichen (z.B. "ab12cdef" für Ihre TU-ID) ein!
+    // BEISPIEL:
+    // studentId = "ab12cdef"
+    // firstName = "sol_first"
+    // lastName = "sol_last"
     studentId = "ab12cdef"
     firstName = "sol_first"
     lastName = "sol_last"
@@ -26,27 +29,13 @@ dependencies {
     implementation(libs.fopbot)
 }
 
-configurations.all {
-    resolutionStrategy {
-        configurations.all {
-            resolutionStrategy {
-                force(
-                    libs.algoutils.student,
-                    libs.algoutils.tutor,
-                )
-            }
-        }
-    }
-}
-
 jagr {
     graders {
+        val graderPublic by getting
         val graderPrivate by creating {
-            graderName.set("H00-Private")
+            parent(graderPublic)
+            graderName.set("FOP-2425-H00-Private")
             rubricProviderName.set("h00.H00_RubricProvider")
-            configureDependencies {
-                implementation(libs.algoutils.tutor)
-            }
         }
     }
 }

@@ -1,13 +1,6 @@
-[versions]
-algoutils = "0.7.2"
-
 [plugins]
-algomate = { id = "org.tudalgo.algomate", version = "0.6.1" }
-style = { id = "org.sourcegrade.style", version = "2.1.0" }
-jagr = { id = "org.sourcegrade.jagr-gradle", version = "0.10.3" }
-
+algomate = { id = "org.tudalgo.algomate", version = "0.7.1" }
+style = { id = "org.sourcegrade.style", version = "3.0.0" }
 
 [libraries]
-algoutils-student = { module = "org.tudalgo:algoutils-student", version.ref = "algoutils" }
-algoutils-tutor = { module = "org.tudalgo:algoutils-tutor", version.ref = "algoutils" }
-fopbot = {module = "org.tudalgo:fopbot", version = "0.7.2-SNAPSHOT"}
+fopbot = {module = "org.tudalgo:fopbot", version = "0.8.0"}

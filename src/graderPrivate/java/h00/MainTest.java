@@ -11,7 +11,13 @@ import org.tudalgo.algoutils.tutor.general.SpoonUtils;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
-import spoon.reflect.code.*;
+import spoon.reflect.code.CtFor;
+import spoon.reflect.code.CtIf;
+import spoon.reflect.code.CtLoop;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.code.CtUnaryOperator;
+import spoon.reflect.code.CtWhile;
+import spoon.reflect.code.UnaryOperatorKind;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
@@ -43,12 +49,12 @@ public class MainTest {
         }
 
         CtType<?> ctType = SpoonUtils.getType(Main.class.getName());
-        CtMethod<?> ctMethod = ctType.getMethodsByName("main").get(0);
+        CtMethod<?> ctMethod = ctType.getMethodsByName("main").getFirst();
         List<CtElement> ctElements = ctMethod.getBody().getDirectChildren();
         int previousSplit = 0;
         for (int i = 0; i < ctElements.size(); i++) {
             CtElement ctElement = ctElements.get(i);
-            if (ctElement instanceof CtIf ctIf && ctIf.getCondition().toString().matches(Main.class.getName() + "\\.runToSubtask == \\d+")) {
+            if (ctElement instanceof CtIf ctIf && ctIf.getCondition().toStringDebug().strip().matches(Main.class.getName() + "\\.runToSubtask == \\d+")) {
                 CT_ELEMENTS.add(ctElements.subList(previousSplit, i));
                 previousSplit = i + 1;
             }
@@ -95,8 +101,8 @@ public class MainTest {
     @JsonParameterSetTest("H0_4.json")
     public void testRobotInit(JsonParameterSet params) {
         for (Utils.RobotSpec robotSpec : Utils.RobotSpec.values()) {
-            List<Transition> transitions = SUBTASK_ROBOT_TRANSITIONS.get(0).get(robotSpec);
-            Robot robot = transitions.get(0).robot;  // getRobot(RobotSpec) won't work because it already moved
+            List<Transition> transitions = SUBTASK_ROBOT_TRANSITIONS.getFirst().get(robotSpec);
+            Robot robot = transitions.getFirst().robot;  // getRobot(RobotSpec) won't work because it already moved
             Context context = contextBuilder()
                 .add("reference robot", robotSpec)
                 .add("actual robot", robot)
@@ -230,14 +236,14 @@ public class MainTest {
             .filter(CtFor.class::isInstance)
             .map(CtFor.class::cast)
             .findAny()
-            .ifPresent(ctFor -> {
+            .ifPresentOrElse(ctFor -> {
                 List<CtStatement> updateStatements = ctFor.getForUpdate();
                 assertEquals(1, updateStatements.size(), emptyContext(),
                     result -> "Found more than one update statement in for-loop");
-                assertTrue(updateStatements.get(0) instanceof CtUnaryOperator<?> op && op.getKind() == UnaryOperatorKind.POSTDEC,
+                assertTrue(updateStatements.getFirst() instanceof CtUnaryOperator<?> op && op.getKind() == UnaryOperatorKind.POSTDEC,
                     emptyContext(),
                     result -> "Update statement does not use a postdecrement operator (i.e., i--)");
-            });
+            }, () -> fail(emptyContext(), result -> "No for loop found for task H0.7.3"));
     }
 
     /**
